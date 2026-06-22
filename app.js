@@ -76,6 +76,27 @@ app.put("/listings/:id", async (req, res) => {
   res.redirect(`/listings/${id}`);
 });
 
+//Delete Route
+app.delete("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  let deletedListing = await Listing.findByIdAndDelete(id);
+  console.log(deletedListing);
+  res.redirect("/listings");
+});
+
+// app.get("/testListing", async (req, res) => {
+//   let sampleListing = new Listing({
+//     title: "My New Villa",
+//     description: "By the beach",
+//     price: 1200,
+//     location: "Calangute, Goa",
+//     country: "India",
+//   });
+
+//   await sampleListing.save();
+//   console.log("sample was saved");
+//   res.send("successful testing");
+// });
 
 // Start server
 app.listen(8080, () => {
