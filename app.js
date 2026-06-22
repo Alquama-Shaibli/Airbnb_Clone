@@ -1,65 +1,58 @@
-// app.js
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-const Listing = require('./models/listing');
-const path = require('path');
-const methodOverride = require('method-override');
+const mongoose = require("mongoose");
+const Listing = require("./models/listing.js");
+const path = require("path");
+const methodOverride = require("method-override");
 
 // MongoDB connection URI
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/AirBnb_Db';
 
-// Connect to MongoDB
+main()
+  .then(() => {
+    console.log("connected to DB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 async function main() {
-  try {
-    await mongoose.connect(MONGODB_URI);
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    throw error;
-  }
+  await mongoose.connect(MONGODB_URI);
 }
-main();
 
-// EJS setup
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
+app.use(methodOverride("_method"));
 
-
-// Home route
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
 });
 
-// Listings index route
-app.get('/listings', async (req, res) => {
-    const allListings = await Listing.find({});
-    // no leading slash, no .ejs
-    res.render('listings/index', { allListings });
- });
-
-
- // New Route
-app.get('/listings/new', (req, res) => {
-    res.render('listings/new');
+//Index Route
+app.get("/listings", async (req, res) => {
+  const allListings = await Listing.find({});
+  res.render("listings/index.ejs", { allListings });
 });
 
-// Show Route
-app.get('/listings/:id', async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-    res.render('listings/show', { listing });
+//New Route
+app.get("/listings/new", (req, res) => {
+  res.render("listings/new.ejs");
 });
 
-// create route
-app.post('/listings', async (req, res) => {
-    let newListing = new Listing(req.body.Listing);
-    await newListing.save();
-    res.redirect('/listings');
+//Show Route
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/show.ejs", { listing });
 });
-// Edit route
+
+//Create Route
+app.post("/listings", async (req, res) => {
+  const newListing = new Listing(req.body.listing);
+  await newListing.save();
+  res.redirect("/listings");
+});
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -68,7 +61,6 @@ app.get("/listings/:id/edit", async (req, res) => {
   res.render("listings/edit.ejs", { listing });
 });
 
-//upadte Route 
 //Update Route
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
@@ -98,7 +90,6 @@ app.delete("/listings/:id", async (req, res) => {
 //   res.send("successful testing");
 // });
 
-// Start server
 app.listen(8080, () => {
-  console.log('Server is running on port 8080');
+  console.log("server is listening to port 8080");
 });
