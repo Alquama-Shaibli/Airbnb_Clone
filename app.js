@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejs-mate = require("ejs-mate");
+
 
 // MongoDB connection URI
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/AirBnb_Db';
@@ -24,6 +26,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.engine("ejs", ejs-mate);
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
