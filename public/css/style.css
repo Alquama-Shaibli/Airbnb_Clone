@@ -12,3 +12,31 @@
     color: #222222 !important;
     
 }
+
+/* Footer Styles */
+.f-info-links a{;
+    color #222222;
+    text-decoration: none;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-links{
+    width: 100%;
+
+}
+
+.finfo-socials{
+    width: 100%;
+}
+
+.f-info{
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content:center;
+    align-items: space-evenly;
+}
