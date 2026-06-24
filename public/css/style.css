@@ -23,16 +23,22 @@
     text-decoration: underline;
 }
 
-.f-info-links{
+.f-info-links,
+.finfo-socials, .f-info-copyright {
     width: 100%;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.finfo-socials{
-    width: 100%;
+.finfo-socials i{
+    font-size: 1.2rem;
+    margin-right: 1rem;
 }
+
 
 .f-info{
+    text-align: center;
     height: 8rem;
     background-color: #ebebeb;
     display: flex;
