@@ -1,3 +1,8 @@
+.body{
+     font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+
 .navbar {
    height: 5rem;
    background-color: white;
@@ -45,4 +50,23 @@
     flex-wrap: nowrap;
     justify-content:center;
     align-items: space-evenly;
+}
+
+/* cards */
+.card{
+  boarder: none !important;  
+  margin-bottom: 2rem;
+}
+.card-img-top{
+    boarder-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+
+.card-text{
+    font-weig
 }
