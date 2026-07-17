@@ -101,3 +101,20 @@ body {
     border-radius: 0.5rem;
 }
 
+show-img {
+    height : 30vh;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.show-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    
+}
+
+
