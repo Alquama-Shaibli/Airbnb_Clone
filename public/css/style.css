@@ -105,6 +105,7 @@ show-img {
     height : 30vh;
 }
 
+/* btn- of New.ejs file */
 .btns {
     display: flex;
     flex-direction: column;
@@ -114,7 +115,7 @@ show-img {
 .show-card {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    
+
 }
 
 
