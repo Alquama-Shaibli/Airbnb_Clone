@@ -37,15 +37,16 @@ body {
 }
 
 .f-info-links,
-.finfo-socials,
+.f-info-socials,
 .f-info-copyright {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0.8rem;
 }
 
-.finfo-socials i {
+.f-info-socials i {
     font-size: 1.2rem;
     margin-right: 1rem;
 }
@@ -53,12 +54,14 @@ body {
 
 .f-info {
     text-align: center;
-    height: 8rem;
+    padding: 1.2rem 0;
     background-color: #ebebeb;
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
     justify-content: center;
-    align-items: space-evenly;
+    align-items: center;
+    gap: 0.6rem;
+    border-top: 1px solid #d0d0d0;
 }
 
 /* cards */
@@ -81,8 +84,10 @@ body {
     font-weight: 400 !important;
 }
 
-.listing-link {
-    text-decoration:none !important;
+.listing-link,
+.Listing-link {
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 /* card-effect  of the listing cards */ 
@@ -101,16 +106,29 @@ body {
     border-radius: 0.5rem;
 }
 
-show-img {
-    height : 30vh;
+.show-img {
+    height: 30vh;
+    object-fit: cover;
 }
 
-/* btn- of New.ejs file */
+/* Show page buttons */
 .btns {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btns form {
+    margin: 0;
+}
+
+.show-btn {
+    min-width: 8rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
 }
 .show-card {
     padding-left: 0 !important;
