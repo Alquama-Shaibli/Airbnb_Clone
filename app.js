@@ -54,17 +54,13 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-app.post("/listings", wrapAsync(async (req, res, next) => {
-  try {
-    if (!req.body.listing) {
-      throw new ExpressError("Invalid Listing Data", 400);
-    }
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-  } catch (err) {
-     next(err);
+app.post("/listings", wrapAsync(async (req, res) => {
+  if (!req.body.listing) {
+    throw new ExpressError("Invalid Listing Data", 400);
   }
+  const newListing = new Listing(req.body.listing);
+  await newListing.save();
+  res.redirect("/listings");
 }));
 
 //Edit Route
@@ -107,7 +103,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 // });
 
 // for all routes if we go to a route that does not exist, we will get a 404 error. We can handle this by creating a custom error class and using it in our app.
-app.all("*", (req, res, next) => {
+app.all("/{*splat}", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
 });
 
