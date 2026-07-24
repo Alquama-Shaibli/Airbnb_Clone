@@ -36,6 +36,16 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
+const validateListing = (req, res, next) => {
+   let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errorMessage = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errorMessage);
+  }else{
+  next();
+}
+};
+
 //Index Route
 app.get("/listings", wrapAsync(async (req, res) => {
   const allListings = await Listing.find({});
@@ -55,7 +65,7 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-app.post("/listings", wrapAsync(async (req, res) => {
+app.post("/listings", validateListing, wrapAsync(async (req, res) => {
   
   let result = listingSchema.validate(req.body);
   console.log(result);
@@ -75,10 +85,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-  if (!req.body.listing) {
-    throw new ExpressError("Invalid Listing Data", 400);
-  }
+app.put("/listings/:id",validateListing, wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
