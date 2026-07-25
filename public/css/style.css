@@ -21,7 +21,7 @@ body {
     font-size: 2rem;
 }
 
-.nav-link active {
+.nav-link.active {
     color: #222222 !important;
 
 }
