@@ -45,11 +45,22 @@
         <div class="mb-3 mt-3">
           <label for="comment" class="form-label">Comment:</label>
           <textarea id="review[comment]" name="comment"  rows="4" class="form-control" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a comment.
+          </div>
         </div>
         <button type="submit" class="btn btn-outline-dark">Submit Review</button>
        </form>
 
       </div>
+
+  <hr/>
+  <h4>All Reviews</h4>
+  <p>
+    <% for(review of listing.reviews) %>{ %>
+       <li> <%= review.comment %>, Rating: <%= review.rating %> </li>
+    }
+  </p>
 
 
     </div>
