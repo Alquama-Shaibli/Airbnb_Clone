@@ -36,7 +36,7 @@
 
        <h4>Leave a Review</h4>
 
-       <form  class="mb-3 mt-3" action="/listings/<%= listing._id %>/reviews" method="POST">
+       <form  class="mb-3 mt-3" action="/listings/<%= listing._id %>/reviews" method="POST" noValidate class="needs-validation">
         <div class="mb-3 mt-3">
           <label for="rating" class="form-label">Rating:</label>
           <input type="range" id="review[rating]" name="rating" min="1" max="5" required class="form-range">
