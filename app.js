@@ -8,6 +8,7 @@ const ejsmate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
+const Review = require("./models/review.js");
 
 
 // MongoDB connection URI
@@ -92,6 +93,11 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   console.log(deletedListing);
   res.redirect("/listings");
 }));
+
+//Create Review Route
+app.post("/listings/:id/reviews", async (req, res) => {
+  let Listing = await Listing.findById(req.params.id);
+  let newreview = new Review(req.body);
 
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
