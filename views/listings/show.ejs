@@ -36,15 +36,15 @@
 
        <h4>Leave a Review</h4>
 
-       <form  class="mb-3 mt-3" action="/listings/<%= listing._id %>/reviews" method="POST" noValidate class="needs-validation">
+       <form class="mb-3 mt-3 needs-validation" action="/listings/<%= listing._id %>/reviews" method="POST" novalidate>
         <div class="mb-3 mt-3">
           <label for="rating" class="form-label">Rating:</label>
-          <input type="range" id="review[rating]" name="rating" min="1" max="5" required class="form-range">
+          <input type="range" id="review[rating]" name="review[rating]" min="1" max="5" required class="form-range">
         </div>
 
         <div class="mb-3 mt-3">
           <label for="comment" class="form-label">Comment:</label>
-          <textarea id="review[comment]" name="comment"  rows="4" class="form-control" required></textarea>
+          <textarea id="review[comment]" name="review[comment]"  rows="4" class="form-control" required></textarea>
           <div class="invalid-feedback">
             Please enter a comment.
           </div>
@@ -57,10 +57,9 @@
   <hr/>
   <h4>All Reviews</h4>
   <p>
-    <% for(review of listing.reviews) %>{ %>
-       <li> <%= review.comment %>, Rating: <%= review.rating %> </li>
-    }
-  </p>
+  <% for(let review of listing.reviews) { %>
+     <li> <%= review.comment %>, Rating: <%= review.rating %> </li>
+  <% } %>
 
 
     </div>
