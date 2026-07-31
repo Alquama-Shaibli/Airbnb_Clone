@@ -12,7 +12,6 @@ const Review = require("./models/review.js");
 
 
 const listingRoutes = require("./routes/listing.js");
-app.use(listingRoutes);
 
 
 // MongoDB connection URI
