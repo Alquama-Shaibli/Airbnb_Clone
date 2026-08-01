@@ -1,14 +1,15 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
+
+
 const Review = require("./models/review.js");
+const reviewRoutes = require("./routes/review.js");
 
 
 const listingRoutes = require("./routes/listing.js");
@@ -40,55 +41,13 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
- 
-
-const validateReview = (req, res, next) => {
-   let { error } = reviewSchema.validate(req.body);
-  if (error) {
-    let errorMessage = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errorMessage);
-  }else{
-  next();
-}
-};
 
 
  app.use("/listings", listingRoutes);
+ app.use("/listings/:id/reviews", reviewRoutes);
 
  
 
-//Create Review Route
-app.post("/listings/:id/reviews",validateReview, wrapAsync(async (req, res) => {
-  let listing = await Listing.findById(req.params.id);
-  let newreview = new Review(req.body.review);
-  listing.reviews.push(newreview);
-  await newreview.save();
-  await listing.save();
-  res.redirect(`/listings/${listing._id}`);
-}));
-
-
-//Delete Review Route
-app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
-  let { id, reviewId } = req.params;
-  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-  await Review.findByIdAndDelete(reviewId);
-  res.redirect(`/listings/${id}`);
-}));
-
-// app.get("/testListing", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My New Villa",
-//     description: "By the beach",
-//     price: 1200,
-//     location: "Calangute, Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
 
 // for all routes if we go to a route that does not exist, we will get a 404 error. We can handle this by creating a custom error class and using it in our app.
 app.all("/{*splat}", (req, res, next) => {
