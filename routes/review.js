@@ -12,7 +12,7 @@ const validateReview = (req, res, next) => {
    let { error } = reviewSchema.validate(req.body);
   if (error) {
     let errorMessage = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errorMessage);
+    throw new ExpressError(errorMessage, 400);
   }else{
   next();
 }

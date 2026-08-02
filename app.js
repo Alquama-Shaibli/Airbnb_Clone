@@ -8,7 +8,6 @@ const ExpressError = require("./utils/ExpressError.js");
 
 
 
-const Review = require("./models/review.js");
 const reviewRoutes = require("./routes/review.js");
 
 
