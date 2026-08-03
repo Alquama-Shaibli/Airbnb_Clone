@@ -37,6 +37,9 @@
         <div class="mb-3 mt-3">
           <label for="review[rating]" class="form-label">Rating:</label>
           <input type="range" id="review[rating]" name="review[rating]" min="1" max="5" required class="form-range">
+          <div class="invalid-feedback">
+            Please provide a rating.
+          </div>
         </div>
 
         <div class="mb-3 mt-3">
@@ -65,10 +68,8 @@
           <%= review.rating %>Stars
         </p>
       </div>
-      <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3 mt-3 needs-validation" method="POST" novalidate>
+      <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3 mt-3">
         <button class="btn btn-sm btn-dark">Delete</button>
-
-         
       </form>
      </div>
   <% } %>

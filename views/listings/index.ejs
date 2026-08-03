@@ -1,9 +1,7 @@
 <% layout("layouts/boilerplate") %>
 
     <h3>All Listings</h3>
-    <form method="GET" action="/listings/new">
-      <button>Create New Listing</button>
-    </form>
+    <a href="/listings/new" class="btn btn-dark add-btn mb-3">+ New Listing</a>
 <!-- div class for the cards -->
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
       <% for(let listing of allListings) { %>

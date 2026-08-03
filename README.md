@@ -152,7 +152,7 @@ The server will start on **http://localhost:8080**
 
 | Method | Route | Description |
 |--------|-------|-------------|
-| `GET` | `/` | Home page |
+| `GET` | `/` | Redirects to `/listings` |
 | `GET` | `/listings` | View all listings |
 | `GET` | `/listings/new` | Show create listing form |
 | `POST` | `/listings` | Create a new listing |
@@ -160,6 +160,8 @@ The server will start on **http://localhost:8080**
 | `GET` | `/listings/:id/edit` | Show edit listing form |
 | `PUT` | `/listings/:id` | Update a listing |
 | `DELETE` | `/listings/:id` | Delete a listing |
+| `POST` | `/listings/:id/reviews` | Add a review to a listing |
+| `DELETE` | `/listings/:id/reviews/:reviewId` | Delete a review |
 
 ---
 
@@ -222,7 +224,7 @@ When creating or updating a listing, the following fields are **required**:
 - [ ] Image Upload to Cloudinary
 - [ ] Search & Filter listings
 - [ ] Map integration (Mapbox / Google Maps)
-- [ ] Reviews & Ratings system
+- [x] Reviews & Ratings system
 - [ ] Booking / Reservation system
 - [ ] Pagination for listings
 
