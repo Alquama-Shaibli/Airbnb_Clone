@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 
 
@@ -48,12 +49,26 @@ const sessionOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   },
 };
-app.use(session(sessionOptions));
+
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
 
+
+app.use(session(sessionOptions));
+
+// flash configuration
+app.use(flash());
+
+
+
+
+ app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 
  app.use("/listings", listingRoutes);
