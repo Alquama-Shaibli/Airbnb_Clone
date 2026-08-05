@@ -33,7 +33,8 @@ router.get("/:id", wrapAsync(async (req, res, next) => {
   let { id } = req.params;
   const listing = await Listing.findById(id).populate("reviews");
   if (!listing) {
-    return next(new ExpressError("Listing not found!", 404));
+     req.flash("error", "Listing not found!");
+     res.redirect("/listings");
   }
   res.render("listings/show.ejs", { listing });
 }));
@@ -52,7 +53,8 @@ router.get("/:id/edit", wrapAsync(async (req, res, next) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
-    return next(new ExpressError("Listing not found!", 404));
+      req.flash("error", "Listing not found!");
+      res.redirect("/listings");
   }
   res.render("listings/edit.ejs", { listing });
 }));
