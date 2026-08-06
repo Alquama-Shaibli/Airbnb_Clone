@@ -71,12 +71,15 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currentUser = req.user;  // expose logged-in user to all views
   next();
 });
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
+
+app.use("/", userRoutes);
 
 
 app.get("/demouser", async (req, res) => {
