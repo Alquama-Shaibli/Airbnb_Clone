@@ -30,6 +30,9 @@ const listingSchema = new Schema({
   ],
 });
 
+
+// Mongoose middleware to delete associated reviews when a listing is deleted
+
 listingSchema.post("findOneAndDelete", async function (Listing) {
   if (Listing) {
     await Review.deleteMany({ _id: { $in: Listing.reviews } });
