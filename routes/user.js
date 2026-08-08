@@ -47,7 +47,7 @@ router.post(
   }),
   async (req, res) => {
     req.flash("success", "Welcome back!");
-    let redirectUrl = res.locals.redirectUrl || "/listings";
+    let redirectUrl = res.locals.redirectUrl || "/listings"; // post login page redirection
     res.redirect(redirectUrl);
   }
 );
