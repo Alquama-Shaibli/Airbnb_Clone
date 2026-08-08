@@ -4,6 +4,7 @@ const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middlewares.js");
 
 
 // Signup GET
@@ -17,8 +18,14 @@ router.post("/sign-up", wrapAsync(async (req, res) => {
     const { email, username, password } = req.body;
     const newUser = new User({ email, username });
     const registeredUser = await User.register(newUser, password);
+    console.log("Registered User:", registeredUser);
+    req.login(registeredUser, (err) => {
+      if (err) {
+       return next(err);
+      }
     req.flash("success", "Welcome to Airbnb Clone!");
     res.redirect("/listings");
+    });
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("/sign-up");
@@ -33,13 +40,15 @@ router.get("/login", (req, res) => {
 // Login POST
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
   }),
   async (req, res) => {
     req.flash("success", "Welcome back!");
-    res.redirect("/listings");
+    let redirectUrl = res.locals.redirectUrl || "/listings";
+    res.redirect(redirectUrl);
   }
 );
 
@@ -52,4 +61,4 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
-module.exports = router;
+module.exports = router;
