@@ -28,6 +28,10 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+  owqner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 
