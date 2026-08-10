@@ -26,6 +26,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newreview = new Review(req.body.review);
   listing.reviews.push(newreview);
+  newreview.author = req.user._id; // Assign the logged-in user as the author of the review
   await newreview.save();
   await listing.save();
   req.flash("success", "New review added successfully!");
