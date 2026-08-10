@@ -5,7 +5,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const Review = require("../models/review.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middlewares.js");
+const { isLoggedIn, validateReview,isReviewAuthor } = require("../middlewares.js");
 
 
 
@@ -28,6 +28,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res) => {
   listing.reviews.push(newreview);
   newreview.author = req.user._id; // Assign the logged-in user as the author of the review
   await newreview.save();
+
   await listing.save();
   req.flash("success", "New review added successfully!");
   res.redirect(`/listings/${listing._id}`);
