@@ -1,0 +1,126 @@
+/*!
+ * Starability.css - v1.2.0
+ * Accessible star-rating widget. No JavaScript.
+ * ------------------------------------------------
+ * Slot animation variant
+ */
+
+/* ── Base fieldset reset ─────────────────────────────────────────────────── */
+.starability-slot {
+  display: block;
+  position: relative;
+  width: 150px;
+  min-height: 50px;
+  padding: 0;
+  border: none;
+  font-size: 1rem;
+}
+
+/* Hide the legend visually but keep it accessible */
+.starability-slot legend {
+  position: absolute;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+/* ── Hide the real radio inputs ─────────────────────────────────────────── */
+.starability-slot input {
+  position: absolute;
+  margin-right: -100%;
+  opacity: 0;
+}
+
+/* ── Star labels ────────────────────────────────────────────────────────── */
+.starability-slot label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  font-size: 0; /* hide text, show star via background */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  float: left;
+}
+
+/* ── Hover / focus: colour stars up to hovered one ─────────────────────── */
+.starability-slot label:hover,
+.starability-slot label:hover ~ label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+}
+
+/* Fill stars from left up to and including the hovered label.
+   Because the labels are floated in reverse (last-child = 1st star visually),
+   we use the sibling trick: hover a label fills it and all PRECEDING siblings. */
+.starability-slot label:hover,
+.starability-slot input:checked ~ label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+}
+
+/* When "no-rate" is checked, reset everything to grey */
+.starability-slot .input-no-rate:checked ~ label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+}
+
+/* Slot animation on check */
+.starability-slot input:checked + label {
+  animation: slot-bounce 0.3s ease;
+}
+
+@keyframes slot-bounce {
+  0%   { transform: translateY(-6px); opacity: 0; }
+  60%  { transform: translateY(2px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Clearfix for the floated labels */
+.starability-slot::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ── Read-only result display (used in review cards) ────────────────────── */
+.starability-result {
+  display: block;
+  width: 150px;
+  height: 30px;
+  font-size: 0;
+  background-repeat: repeat-x;
+  background-size: 30px 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+}
+
+/* Fill stars proportionally based on data-rating (1-5) via JS in script.js */
+.starability-result[data-rating="1"] { background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+  background-size: 30px 30px, 120px 30px;
+  background-position: 0 0, 30px 0;
+}
+.starability-result[data-rating="2"] { background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+  background-size: 60px 30px, 90px 30px;
+  background-position: 0 0, 60px 0;
+}
+.starability-result[data-rating="3"] { background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+  background-size: 90px 30px, 60px 30px;
+  background-position: 0 0, 90px 0;
+}
+.starability-result[data-rating="4"] { background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ddd' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+  background-size: 120px 30px, 30px 30px;
+  background-position: 0 0, 120px 0;
+}
+.starability-result[data-rating="5"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffbc00' d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.897l-7.334 3.863 1.4-8.168L.198 9.21l8.2-1.192z'/%3E%3C/svg%3E");
+}
