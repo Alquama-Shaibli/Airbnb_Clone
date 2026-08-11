@@ -1,41 +1,18 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middlewares.js");
-
+const usersController = require("../controllers/users.js");
 
 // Signup GET
-router.get("/sign-up", (req, res) => {
-  res.render("UserSignup/signup.ejs");
-});
+router.get("/sign-up", usersController.renderSignupForm);
 
 // Signup POST
-router.post("/sign-up", wrapAsync(async (req, res) => {
-  try {
-    const { email, username, password } = req.body;
-    const newUser = new User({ email, username });
-    const registeredUser = await User.register(newUser, password);
-    console.log("Registered User:", registeredUser);
-    req.login(registeredUser, (err) => {
-      if (err) {
-       return next(err);
-      }
-    req.flash("success", "Welcome to Airbnb Clone!");
-    res.redirect("/listings");
-    });
-  } catch (e) {
-    req.flash("error", e.message);
-    res.redirect("/sign-up");
-  }
-}));
+router.post("/sign-up", wrapAsync(usersController.signup));
 
 // Login GET
-router.get("/login", (req, res) => {
-  res.render("UserSignup/login.ejs");
-});
+router.get("/login", usersController.renderLoginForm);
 
 // Login POST
 router.post(
@@ -45,20 +22,10 @@ router.post(
     failureFlash: true,
     failureRedirect: "/login",
   }),
-  async (req, res) => {
-    req.flash("success", "Welcome back!");
-    let redirectUrl = res.locals.redirectUrl || "/listings"; // post login page redirection
-    res.redirect(redirectUrl);
-  }
+  wrapAsync(usersController.login)
 );
 
 // Logout
-router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    req.flash("success", "Logged out successfully!");
-    res.redirect("/listings");
-  });
-});
+router.get("/logout", usersController.logout);
 
 module.exports = router;
