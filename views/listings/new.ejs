@@ -7,7 +7,7 @@
       <h3>Create a New Listing</h3>
 
       <!-- novalidate disables browser's built-in validation so Bootstrap custom validation styles take over -->
-      <form method="POST" action="/listings" novalidate class="needs-validation">
+      <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
 
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -28,6 +28,14 @@
           <label for="image" class="form-label">Image URL</label>
           <input id="image" name="listing[image][url]" placeholder="Enter image URL/Link" type="text"
             class="form-control" />
+          <div class="valid-feedback">Image URL looks good!</div>
+          <div class="invalid-feedback">Please enter a valid image URL.</div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Files</label>
+          <input id="image" name="listing[image][url]" type="file" class="form-control" />
           <div class="valid-feedback">Image URL looks good!</div>
           <div class="invalid-feedback">Please enter a valid image URL.</div>
         </div>
