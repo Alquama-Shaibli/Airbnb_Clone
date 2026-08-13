@@ -24,7 +24,7 @@
       </div>
       <br/>
       
-     <%= if (currentUser && currentUser._id.equal(listing.owner._id)) { %>
+     <% if (currentUser && currentUser._id.equals(listing.owner._id)) { %>
 
       <div class="btns">
         <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark show-btn">Edit</a>
@@ -38,7 +38,7 @@
         <hr/>
 
 
-    <%= if (currentUser) { %>
+    <% if (currentUser) { %>
        <h4>Leave a Review</h4>
 
        <form class="mb-3 mt-3 needs-validation" action="/listings/<%= listing._id %>/reviews" method="POST" novalidate>
