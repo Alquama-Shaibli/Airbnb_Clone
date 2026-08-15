@@ -28,7 +28,7 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
-  owqner: {
+  owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
