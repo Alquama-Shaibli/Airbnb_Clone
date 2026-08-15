@@ -23,20 +23,14 @@
           <div class="valid-feedback">Description looks good!</div>
           <div class="invalid-feedback">Please provide a description.</div>
         </div>
+        
 
         <div class="mb-3">
-          <label for="image" class="form-label">Image URL</label>
-          <input id="image" name="listing[image][url]" placeholder="Enter image URL/Link" type="text"
-            class="form-control" />
-          <div class="valid-feedback">Image URL looks good!</div>
-          <div class="invalid-feedback">Please enter a valid image URL.</div>
+          <label for="image" class="form-label">Upload Files</label>
+          <input id="image" name="listing[image]" type="file" class="form-control" />
+          <div class="valid-feedback">Image looks good!</div>
+          <div class="invalid-feedback">Please enter a valid image .</div>
         </div>
-
-        <div class="mb-3">
-          <label for="imageFile" class="form-label">Or Upload an Image</label>
-          <input id="imageFile" name="listing[image]" type="file" accept="image/*" class="form-control" />
-        </div>
-
 
         <div class="row mb-3">
           <div class="md-3 col-md-4">
