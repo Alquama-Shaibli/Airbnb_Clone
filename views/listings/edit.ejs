@@ -23,14 +23,9 @@
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image URL:</label>
-        <input id="image" name="listing[image][url]" value="<%= listing.image.url %>" type="text" class="form-control" />
-        <div class="valid-feedback">Image URL looks good!</div>
-        <div class="invalid-feedback">Please enter a valid image URL.</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="imageFile" class="form-label">Or Upload a New Image</label>
+        <label class="form-label">Current Image:</label><br/>
+        <img src="<%= listing.image.url %>" alt="current image" style="height:150px; border-radius:8px; margin-bottom:8px;"/>
+        <label for="imageFile" class="form-label">Upload a New Image (optional):</label>
         <input id="imageFile" name="listing[image]" type="file" accept="image/*" class="form-control" />
       </div>
 

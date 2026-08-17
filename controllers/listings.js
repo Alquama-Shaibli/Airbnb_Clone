@@ -43,12 +43,13 @@ module.exports.edit = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-  const { id } = req.params;
-  const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  if (req.file) {
-    listing.image = { url: req.file.path, filename: req.file.filename };
-    await listing.save();
-  }
+  let { id } = req.params;
+  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  if (typeof req.file !== "undefined") {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  listing.image = { url, filename };
+  await listing.save();}
   req.flash("success", "Listing updated successfully!");
   res.redirect(`/listings/${id}`);
 };
