@@ -10,11 +10,11 @@ module.exports.newRoute = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
-  if (req.file) {
-    newListing.image = { url: req.file.path, filename: req.file.filename };
-  }
+  newListing.image = { url, filename };
   await newListing.save();
   req.flash("success", "New listing created successfully!");
   res.redirect("/listings");
@@ -39,7 +39,10 @@ module.exports.edit = async (req, res) => {
     req.flash("error", "Listing not found!");
     return res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { listing });
+
+let originalImageUrl = listing.image.url; // Store the original image URL
+originalImageUrl = originalImageUrl.replace("/upload/", "/upload/h_300,w_250/"); // Replace the path to match the new image path
+  res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
 module.exports.update = async (req, res) => {
@@ -60,3 +63,4 @@ module.exports.destroy = async (req, res) => {
   req.flash("success", "Listing deleted successfully!");
   res.redirect("/listings");
 };
+
