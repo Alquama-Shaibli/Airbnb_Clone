@@ -9,13 +9,13 @@ const reviewsController = require("../controllers/reviews.js");
 
 
 const validateReview = (req, res, next) => {
-   let { error } = reviewSchema.validate(req.body);
+  let { error } = reviewSchema.validate(req.body);
   if (error) {
     let errorMessage = error.details.map((el) => el.message).join(",");
     throw new ExpressError(errorMessage, 400);
-  }else{
-  next();
-}
+  } else {
+    next();
+  }
 }; 
 
 

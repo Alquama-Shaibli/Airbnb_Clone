@@ -1,7 +1,7 @@
 const Review = require("../models/review");
 const Listing = require("../models/listing");
 
-module .exports.createReview = (async (req, res) => {
+module.exports.createReview = (async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newreview = new Review(req.body.review);
   listing.reviews.push(newreview);

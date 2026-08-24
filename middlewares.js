@@ -6,7 +6,7 @@ const ExpressError = require("./utils/ExpressError.js");
 module.exports = {
   isLoggedIn: (req, res, next) => {
     if (!req.isAuthenticated()) {
-      // rediret to login page and save the original URL to redirect back after login
+      // redirect to login page and save the original URL to redirect back after login
         req.session.redirectUrl = req.originalUrl;
         req.flash("error", "You must be logged in to access this page!");
         return res.redirect("/login");
@@ -52,4 +52,4 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     return res.redirect(`/listings/${id}`);
   }
   next();
-}
+} 

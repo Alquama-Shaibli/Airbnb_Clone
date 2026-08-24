@@ -26,7 +26,7 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-});
+}, { timestamps: true });
 
 
 // Mongoose middleware to delete associated reviews when a listing is deleted

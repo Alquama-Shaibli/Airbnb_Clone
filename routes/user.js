@@ -23,7 +23,8 @@ router.route("/login")
     );
 
 
-// Logout
+// Logout (GET for navbar link, POST for form-based logout)
 router.get("/logout", usersController.logout);
+router.post("/logout", usersController.logout);
 
 module.exports = router;
