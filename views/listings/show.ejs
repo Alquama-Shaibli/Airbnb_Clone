@@ -1,6 +1,8 @@
 <% layout("layouts/boilerplate") %>
-
-  <div class="row mt-3">
+<script>
+  const mapToken = '<%= process.env.MAPBOX_ACCESS_TOKEN %>';
+</script>   
+<div class="row mt-3">
     <div class="col-8 offset-2">
       <h3> <%= listing.title %> </h3>
 
@@ -78,11 +80,9 @@
       </div>
 <% } %>
   <hr/>
-  <p> <b>All Reviews</b></p>
+  <% if(listing.reviews.length > 0 ) { %>
   <div class="row">
-  <% if (listing.reviews.length === 0) { %>
-    <p class="text-muted ms-3">No reviews yet. Be the first to leave one!</p>
-  <% } %>
+     <p> <b>All Reviews</b></p>
   <% for(let review of listing.reviews) { %>
      <div class="card col-5 ms-3 mb-3">
       <div class="card-body">
@@ -93,19 +93,33 @@
         <p class="card-text">
          @ <%= review.author.username %>
         </p>
-        <div class="mb-3 mt-3">
-        </div>
         <p class="starability-result card-text" data-rating="<%= review.rating %>">
-    Rated: <%= review.rating %> stars
-  </p>
+          Rated: <%= review.rating %> stars
+        </p>
       </div>
       <% if (currentUser && currentUser._id.equals(review.author._id)) { %>
       <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3 mt-3">
         <button class="btn btn-sm btn-dark">Delete</button>
       </form>
       <% } %>
-     </div>
+    </div>
   <% } %>
+  </div>
+  <% } %>
+    <div class="col-8 offset-3 mb-3">
+       <h3>where you will be</h3>
+       <div id="map"></div>
     </div>
+     <script>
+    const map = new mapboxgl.Map({
+        accessToken: 'YOUR_MAPBOX_ACCESS_TOKEN',
+        container: 'map',
+        center: [77.209, 28.6139], // Default center coordinates (longitude, latitude)
+        zoom: 9
+    });
+</script>
+
     </div>
-  </div> 
+  </div>
+
+  <script src="/js/map.js"></script>

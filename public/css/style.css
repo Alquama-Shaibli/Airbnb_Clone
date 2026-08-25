@@ -157,5 +157,12 @@ body {
 
 }
 
+/* map */
 
+#map {
+    height: 400px;
+    width: 80vh;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
 
