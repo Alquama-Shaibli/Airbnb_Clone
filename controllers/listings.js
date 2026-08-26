@@ -19,14 +19,19 @@ module.exports.create = async (req, res) => {
       limit: 1,
     })
     .send()
-     
 
+
+     
+  let url = req.file.path;
+  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
+  newListing.geometry = response.body.features[0].geometry;
   if (req.file) {
     newListing.image = { url: req.file.path, filename: req.file.filename };
   }
-  await newListing.save();
+  let savedListing = await newListing.save();
+  console.log(savedListing);
   req.flash("success", "New listing created successfully!");
   res.redirect("/listings");
 };
