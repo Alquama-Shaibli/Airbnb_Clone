@@ -3,16 +3,15 @@ const review = require("./models/review.js");
 const { listingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
-module.exports = {
-  isLoggedIn: (req, res, next) => {
-    if (!req.isAuthenticated()) {
-      // redirect to login page and save the original URL to redirect back after login
-        req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "You must be logged in to access this page!");
-        return res.redirect("/login");
-    }
-    next();
-  }};
+module.exports.isLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    // redirect to login page and save the original URL to redirect back after login
+    req.session.redirectUrl = req.originalUrl;
+    req.flash("error", "You must be logged in to access this page!");
+    return res.redirect("/login");
+  }
+  next();
+};
 
   module.exports.saveRedirectUrl = (req, res, next) => {
     if (req.session.redirectUrl) {
