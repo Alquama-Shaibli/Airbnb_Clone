@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -43,7 +45,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // session configuration
 const sessionOptions = {
-  secret: "thisshouldbeabettersecret!",
+  secret: process.env.SESSION_SECRET || "thisshouldbeabettersecret!",
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -111,5 +113,3 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
 });
-
- 
