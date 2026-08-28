@@ -21,9 +21,6 @@ module.exports.create = async (req, res) => {
     .send()
 
 
-     
-  let url = req.file.path;
-  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.geometry = response.body.features[0].geometry;
