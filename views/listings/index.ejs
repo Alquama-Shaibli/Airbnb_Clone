@@ -3,7 +3,9 @@
     <style>
        #filters {
         display: flex;
-        flex-wrap: wrap;}
+        flex-wrap: wrap;
+         align-items: center;
+         }
 
         .filter {
           text-align: center;
@@ -23,6 +25,16 @@
 
         .tax-info {
            display: none;
+        }
+
+        .taxToggle-reverse {
+           boarder: 1px solid #0a0a0a;
+           boarder-radius: 5px;
+           height: 2.5rem;
+           padding: 1rem;
+           margin-left: 2rem;
+           display: flex;
+           align-items: center;
         }
       </style>
     <!-- Form -->
@@ -56,6 +68,15 @@
 
 
   <div class="filter">
+ <div><i class="fa-solid fa-tent"></i></div>  
+  <p>Campings</p>
+
+  <div class="filter">
+ <div><i class="fa-solid fa-cow"></i></div>  
+  <p>Farms</p>
+
+
+   <div class="filter">
  <div><i class="fa-solid fa-tent"></i></div>  
   <p>Campings</p>
 
