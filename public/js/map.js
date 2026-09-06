@@ -1,16 +1,17 @@
-   let mapToken =  mapToken;
-   console.log(mapToken);
-   mapboxgl.accessToken = mapToken;
+// mapToken, coordinates, and Location are globals set inline in show.ejs
+mapboxgl.accessToken = mapToken;
 
-    const map = new mapboxgl.Map({
-        accessToken: 'YOUR_MAPBOX_ACCESS_TOKEN',
-        container: 'map',
-        center: coordinates, // Default center coordinates (longitude, latitude)
-        zoom: 9
-    });
- 
-    const marker = new mapboxgl.Marker({color: 'red'})
-        .setLngLat([coordinates]) // Default marker coordinates (longitude, latitude)
-        .setPopup(new mapboxgl.Popup({offset: 25})
-        .setHTML(`<h3>${listing.title}</h3><p>Location may vary</p>`))
-        .addTo(map);
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: coordinates, // [lng, lat] array from listing.geometry.coordinates
+    zoom: 9
+});
+
+new mapboxgl.Marker({ color: 'red' })
+    .setLngLat(coordinates) // coordinates is already [lng, lat] — no extra brackets
+    .setPopup(
+        new mapboxgl.Popup({ offset: 25 })
+            .setHTML(`<h3>${Location}</h3><p>Exact location provided after booking</p>`)
+    )
+    .addTo(map);
