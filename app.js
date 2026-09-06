@@ -21,9 +21,10 @@ const reviewRoutes = require("./routes/review.js");
 const listingRoutes = require("./routes/listing.js");
 
 
-// MongoDB connection URI
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/AirBnb_Db';
+// // MongoDB connection URI
+// const MONGODB_URI = 'mongodb://127.0.0.1:27017/AirBnb_Db';
 
+const dburl = process.env.ATLAS;
 main()
   .then(() => {
     console.log("connected to DB");
@@ -33,7 +34,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGODB_URI);
+  await mongoose.connect(dburl);
 }
 
 app.set("view engine", "ejs");
