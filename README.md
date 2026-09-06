@@ -2,6 +2,9 @@
 
 A full-stack web application inspired by Airbnb, built with **Node.js**, **Express**, **MongoDB Atlas**, and **EJS**. Users can browse, create, edit, and delete property listings, leave reviews, and manage their accounts with full authentication.
 
+
+<img width="1877" height="847" alt="Screenshot 2026-09-07 012218" src="https://github.com/user-attachments/assets/2aa4ce13-c796-4c8c-9db4-23a78709fdfb" />
+
 <div align="center">
 
 ### 🌐 [Live Demo → https://airbnb-clone-7s0b.onrender.com/listings](https://airbnb-clone-7s0b.onrender.com/listings)
