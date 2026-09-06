@@ -10,18 +10,6 @@ A full-stack web application inspired by Airbnb, built with **Node.js**, **Expre
 
 ---
 
-## 📸 Screenshots
-
-### 🏡 Home Page — Browse Listings
-![Home Page](screenshots/homepage.png)
-
-### 🔐 Login Page
-![Login Page](screenshots/login.png)
-
-### 📝 Sign Up Page
-![Sign Up Page](screenshots/signup.png)
-
----
 
 ## 🚀 Features
 

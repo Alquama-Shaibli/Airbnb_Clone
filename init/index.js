@@ -1,14 +1,15 @@
+require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
 const mongoose = require('mongoose');
 const initdata = require('./data.js');
 const Listing = require('../models/listing.js');
 const User = require('../models/user.js');
 
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/AirBnb_Db';
+const MONGODB_URI = process.env.ATLAS;
 
 async function main() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB Atlas');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
     throw error;
