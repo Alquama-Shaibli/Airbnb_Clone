@@ -1,7 +1,4 @@
 const Listing = require("../models/listing");
-const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-const maptoken = process.env.MAPBOX_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: maptoken });
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -13,17 +10,8 @@ module.exports.newRoute = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-   let response = await geocodingClient
-    .forwardGeocode({
-      query: req.body.listing.location,
-      limit: 1,
-    })
-    .send()
-
-
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
-  newListing.geometry = response.body.features[0].geometry;
   if (req.file) {
     newListing.image = { url: req.file.path, filename: req.file.filename };
   }
@@ -53,8 +41,8 @@ module.exports.edit = async (req, res) => {
     return res.redirect("/listings");
   }
 
-let originalImageUrl = listing.image.url; // Store the original image URL
-originalImageUrl = originalImageUrl.replace("/upload/", "/upload/h_300,w_250/"); // Replace the path to match the new image path
+  let originalImageUrl = listing.image.url;
+  originalImageUrl = originalImageUrl.replace("/upload/", "/upload/h_300,w_250/");
   res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
@@ -75,4 +63,3 @@ module.exports.destroy = async (req, res) => {
   req.flash("success", "Listing deleted successfully!");
   res.redirect("/listings");
 };
-
