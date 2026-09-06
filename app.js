@@ -49,9 +49,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const store = MongoStore.create({
   mongoUrl: dburl,
-  crypto: {
-    secret: process.env.SECRET_KEY,
-  },
   touchAfter: 24 * 60 * 60, // time period in seconds
 });
 
@@ -123,9 +120,8 @@ app.all("/{*splat}", (req, res, next) => {
 app.use((err, req, res, next) => {
     let{ statusCode=500, message = "Something went wrong!"} = err;
     console.error(`[Error ${statusCode}]: ${message}`);
+    if (res.headersSent) return next(err);
     res.status(statusCode).render("listings/error.ejs", { message });
-    
-    // res.status(statusCode).send(message);
 });
 
 app.listen(8080, () => {
